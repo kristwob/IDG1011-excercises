@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="students">
+    <h1><b>List of students:</b></h1>
+    <script>
+
+      /*Here we are fetching a JSON file across the network and printing it to the console. 
+      The simplest use of fetch() takes one argument — the path to the resource you want to fetch — and 
+      returns a promise containing the response (a Response object).
+      This is just an HTTP response, not the actual JSON. To extract the JSON body content from the response, we 
+      use the json() method (defined on the Body mixin, which is implemented by both the Request and Response objects.)
+      */
+      fetch("js/studentList.json")  //file source for fetching data
+      //then there a promise is made which gives a response in the form of an object
+      .then(data=>data.json())  //use of JSON method to extract the body content of the response
+      .then(json=>{
+        //console.log(json); //end of Step 1, once the fetch has been made
+        let students = document.querySelector('.students'); //variable where list will be appended
+        json.forEach(student=>{  //forEach method for the json file, takes student as argument
+          let div = document.createElement('DIV');  //creates a new element for each student inside of the DOM
+          div.innerHTML = `<p>${student.lastName}, ${student.givenName} --- ${student.studyProgramme}</p>`; //Print data
+          students.appendChild(div);
+        })
+      });  // end of fetch
+    </script>
+  </div>
+</body>
+</html>
